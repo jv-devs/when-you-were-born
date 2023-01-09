@@ -1,0 +1,48 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.container {
+  max-width: 1260px;
+  height: 100%;
+  display: block;
+  overflow: auto;
+  width: 90%;
+  margin: 0 auto;
+  background-color: white;
+  padding: 20px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.background-image {
+  height: 100vh;
+  position: relative;
+  background-image: url(../../../images/bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.background-image::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: white;
+    opacity: 0.75;
+}
+
+.nyt-image-container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.article-content img {
+  margin: 0 auto;
+}

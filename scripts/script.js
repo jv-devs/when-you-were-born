@@ -4,22 +4,10 @@ const apiKey = '3PVudwxw0pTrDaU6BjIwRtu6a64QHvKB';
 
 const formElement = document.querySelector('form');
 const inputElement = document.querySelector('input#date-input');
-const articleElement = document.querySelector('article');
+const articleElement = document.querySelector('.article-content');
 
 // Create an app object (whenYouWereBorn)
 const whenYouWereBornApp = {};
-
-// shuffleArray Function
-const shuffleArray = (arr) => {
-  // alternative solution
-  // for (let i = arr.length - 1; i > 0; i--) {
-  //   const j = Math.floor(Math.random() * (i + 1));
-  //   [arr[i], arr[j]] = [arr[j], arr[i]];
-  // }
-  // return arr;
-
-  return arr.sort(() => Math.random() - 0.5);
-};
 
 // Initialize preset data in the dedicated properties
 // - apiURL
@@ -78,7 +66,6 @@ whenYouWereBornApp.displayArticle = (index) => {
   const headline = currentArticle.headline.main;
   console.log(index, currentArticle);
   articleElement.innerHTML = `
-  <h2>The New York Times</h2>
   <div class="date">${currentArticle.pub_date.slice(0, 10)}</div>
   <div>
     <img src="${currentArticle.multimedia[0] ? 'https://static01.nyt.com/' + currentArticle.multimedia[0].url : ''}" alt="" />
@@ -90,9 +77,27 @@ whenYouWereBornApp.displayArticle = (index) => {
   `;
 };
 
+// filter for quality articles
+
+whenYouWereBornApp.filterArticle = () => {
+  // abstract string length
+  // presence of byline and all fields that we are using
+}
+
 // Create an init method to kick off the setup of the application
 whenYouWereBornApp.init = () => {
   whenYouWereBornApp.addListeners();
 };
 
 whenYouWereBornApp.init();
+
+// helper functions
+
+// shuffleArray Function
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+};
