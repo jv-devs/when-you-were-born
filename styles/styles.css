@@ -227,9 +227,22 @@ html {
   overflow: hidden;
 }
 
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
 .container {
   max-width: 1260px;
-  height: 100vh;
+  height: 100%;
   display: block;
   overflow: auto;
   width: 90%;
@@ -273,4 +286,40 @@ img {
 /* site fonts */
 body {
   font-family: "IM Fell English", serif;
+}
+
+.modal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+footer {
+  margin: 0 auto;
+  background-color: grey;
+  width: 100%;
+}
+footer p {
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0;
+}
+
+article .nyt-image-container {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding: 25px;
+  border-top: 5px solid black;
+  border-bottom: 5px solid black;
 }

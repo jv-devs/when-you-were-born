@@ -1,6 +1,12 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .container {
   max-width: 1260px;
-  height: 100vh;
+  height: 100%;
   display: block;
   overflow: auto;
   width: 90%;
