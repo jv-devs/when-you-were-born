@@ -58,39 +58,49 @@ whenYouWereBornApp.getArticles = (date) => {
 // displayArticle function
 whenYouWereBornApp.displayArticle = (index) => {
   const currentArticle = whenYouWereBornApp.articlesArray[index];
+  const {
+    pub_date: pubDate,
+    headline: { main: headline },
+    section_name: sectionName,
+    byline: { original: byline },
+    abstract,
+    keywords,
+  } = currentArticle;
+
+  const imgAltText = `image for '${headline}' article`;
 
   const dateElement = document.createElement('div');
   dateElement.classList.add('date');
   // TO-DO: DISPLAY DATE IN PROPER FORMAT
   // dateElement.textContent = currentArticle.pub_date.slice(0, 10);
-  dateElement.textContent = dateString(currentArticle.pub_date);
+  dateElement.textContent = dateString(pubDate);
 
   const imageContainerElement = document.createElement('div');
   imageContainerElement.classList.add('article-image-container');
   const imageElement = document.createElement('img');
   imageElement.src = currentArticle.multimedia[0] ? 'https://static01.nyt.com/' + currentArticle.multimedia[0].url : '';
-  imageElement.alt = `image for '${currentArticle.headline.main}' article`;
+  imageElement.alt = imgAltText;
   imageContainerElement.append(imageElement);
 
   // headline
   const headlineElement = document.createElement('h2');
   headlineElement.classList.add('headline');
-  headlineElement.textContent = currentArticle.headline.main;
+  headlineElement.textContent = headline;
 
   // section name
   const sectionNameElement = document.createElement('h3');
   sectionNameElement.classList.add('section-name');
-  sectionNameElement.textContent = currentArticle.section_name;
+  sectionNameElement.textContent = sectionName;
 
   // byline
   const bylineElement = document.createElement('div');
   bylineElement.classList.add('byline');
-  bylineElement.textContent = currentArticle.byline.original;
+  bylineElement.textContent = byline;
 
   // abstract
   const abstractElement = document.createElement('div');
   abstractElement.classList.add('abstract');
-  abstractElement.textContent = currentArticle.abstract;
+  abstractElement.textContent = abstract;
 
   // add elements to .article-content
   const articleContentElement = document.querySelector('.article-content');
