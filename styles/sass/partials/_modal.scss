@@ -1,6 +1,20 @@
+@use 'variables' as *;
+
 .modal {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  h1 {
+    font-size: clamp(0.1rem, 7.5vw, 30rem);
+    margin-bottom: 5px;
+  }
+  .date-form > * {
+    font-family: $body-font;
+  }
+  .app-description {
+    color: rgb(101, 101, 101);
+    font-size: clamp(0.1rem, 3.5vw, 1.5rem);
+  }
 }

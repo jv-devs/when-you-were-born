@@ -66,6 +66,7 @@ whenYouWereBornApp.displayArticle = (index) => {
   dateElement.textContent = dateString(currentArticle.pub_date);
 
   const imageContainerElement = document.createElement('div');
+  imageContainerElement.classList.add('article-image-container');
   const imageElement = document.createElement('img');
   imageElement.src = currentArticle.multimedia[0] ? 'https://static01.nyt.com/' + currentArticle.multimedia[0].url : '';
   imageElement.alt = `image for '${currentArticle.headline.main}' article`;
@@ -73,10 +74,12 @@ whenYouWereBornApp.displayArticle = (index) => {
 
   // headline
   const headlineElement = document.createElement('h2');
+  headlineElement.classList.add('headline');
   headlineElement.textContent = currentArticle.headline.main;
 
   // section name
   const sectionNameElement = document.createElement('h3');
+  sectionNameElement.classList.add('section-name');
   sectionNameElement.textContent = currentArticle.section_name;
 
   // byline
@@ -94,8 +97,8 @@ whenYouWereBornApp.displayArticle = (index) => {
   articleContentElement.innerHTML = '';
   articleContentElement.append(dateElement);
   articleContentElement.append(imageContainerElement);
-  articleContentElement.append(headlineElement);
   articleContentElement.append(sectionNameElement);
+  articleContentElement.append(headlineElement);
   articleContentElement.append(bylineElement);
   articleContentElement.append(abstractElement);
 };
@@ -105,7 +108,7 @@ whenYouWereBornApp.displayArticle = (index) => {
 whenYouWereBornApp.filterArticle = () => {
   // abstract string length
   // presence of byline and all fields that we are using
-}
+};
 
 // Create an init method to kick off the setup of the application
 whenYouWereBornApp.init = () => {
@@ -123,7 +126,7 @@ function shuffleArray(arr) {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
-};
+}
 
 function dateString(date) {
   const newDate = new Date(date);
