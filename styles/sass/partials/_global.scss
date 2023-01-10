@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 body {
   display: flex;
   flex-direction: column;
@@ -5,10 +7,10 @@ body {
 }
 
 .container {
-  max-width: 1260px;
-  height: 100%;
+  max-width: 800px;
+  overflow: scroll;
+  height: calc(100vh - $footer-height);
   display: block;
-  overflow: auto;
   width: 90%;
   margin: 0 auto;
   background-color: white;
@@ -30,12 +32,12 @@ img {
 }
 
 .background-image::after {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    inset: 0;
-    background: white;
-    opacity: 0.75;
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: white;
+  opacity: 0.75;
 }
 
 .nyt-image-container {

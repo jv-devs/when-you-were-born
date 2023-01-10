@@ -227,6 +227,8 @@ html {
   overflow: hidden;
 }
 
+/* site fonts */
+/* utility classes */
 body {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -241,10 +243,10 @@ body {
 }
 
 .container {
-  max-width: 1260px;
-  height: 100%;
+  max-width: 800px;
+  overflow: scroll;
+  height: calc(100vh - 30px);
   display: block;
-  overflow: auto;
   width: 90%;
   margin: 0 auto;
   background-color: white;
@@ -283,7 +285,6 @@ img {
   margin: 0 auto;
 }
 
-/* site fonts */
 body {
   font-family: "IM Fell English", serif;
 }
@@ -302,10 +303,31 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  text-align: center;
+}
+.modal h1 {
+  font-size: clamp(0.1rem, 7.5vw, 30rem);
+  margin-bottom: 5px;
+}
+.modal .date-form > * {
+  font-family: "IM Fell English", serif;
+}
+.modal .app-description {
+  color: rgb(101, 101, 101);
+  font-size: clamp(0.1rem, 3.5vw, 1.5rem);
 }
 
 footer {
-  margin: 0 auto;
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: grey;
   width: 100%;
 }
@@ -315,11 +337,44 @@ footer p {
   padding-bottom: 5px;
   margin: 0;
 }
+footer p a {
+  color: black;
+}
 
-article .nyt-image-container {
+.nyt-image-container {
   margin-top: 25px;
   margin-bottom: 25px;
   padding: 25px;
   border-top: 5px solid black;
   border-bottom: 5px solid black;
+}
+
+article .article-image-container img {
+  -o-object-fit: contain;
+     object-fit: contain;
+  height: 100%;
+  padding: 5px;
+  border: 3px solid black;
+  -webkit-box-shadow: -5px 5px 1px black;
+          box-shadow: -5px 5px 1px black;
+}
+article .date,
+article .headline,
+article .byline,
+article .section-name {
+  text-align: center;
+  padding-bottom: 25px;
+}
+article .section-name {
+  font-style: italic;
+  padding: 0;
+  margin-bottom: 10px;
+}
+article .headline {
+  padding: 0;
+  margin: 5px 0;
+  font-size: 1.75rem;
+}
+article .byline {
+  font-style: italic;
 }

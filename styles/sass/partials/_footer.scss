@@ -1,11 +1,19 @@
+@use 'variables' as *;
+
 footer {
-  margin: 0 auto;
-  background-color: grey;
+  height: $footer-height;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $primary-bg;
   width: 100%;
   p {
     text-align: center;
     padding-top: 5px;
     padding-bottom: 5px;
     margin: 0;
+    a {
+      color: black;
+    }
   }
 }

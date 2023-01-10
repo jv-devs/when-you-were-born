@@ -1,34 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>When You Were Born</title>
+    <link rel="stylesheet" href="./styles/styles.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>When You Were Born</title>
-  <link rel="stylesheet" href="./styles/styles.css" />
-</head>
-
-<body class="background-image">
-  <div class="container">
-    <main>
+  <body class="background-image">
+    <main class="container">
       <section class="modal">
         <h1>When You Were Born</h1>
+        <p class="app-description">Have you ever wondered what was on the news on the day you were born? Enter your DOB to find out!</p>
         <form action="#" class="date-form">
+          <label class="sr-only" for="date-input">enter birth date</label>
           <input type="date" name="date-input" id="date-input" required />
           <button type="submit">Show me the money</button>
         </form>
       </section>
       <article>
-        <div class="nyt-image-container"><img src="./images/nyt.svg" alt="New York Times logo"></div>
+        <div class="nyt-image-container"><img src="./images/nyt.svg" alt="New York Times logo" /></div>
         <div class="article-content"></div>
       </article>
     </main>
-  </div>
-  <footer>
-    <p><a href="https://junocollege.com/" target="_blank">Created at Juno College</a></p>
-  </footer>
-  <script src="./scripts/script.js"></script>
-</body>
-
+    <footer>
+      <p><a href="https://junocollege.com/" target="_blank">Created at Juno College</a></p>
+    </footer>
+    <script src="./scripts/script.js"></script>
+  </body>
 </html>
