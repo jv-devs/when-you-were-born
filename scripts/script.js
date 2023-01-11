@@ -46,7 +46,11 @@ whenYouWereBornApp.getArticles = (date) => {
     })
     .then((jsonResult) => {
       // If article includes all the required data
-      whenYouWereBornApp.articlesArray = [...shuffleArray(jsonResult.response.docs)];
+      const curatedArticlesArray = whenYouWereBornApp.curatedArticles(jsonResult.response.docs);
+      if (curatedArticlesArray.length === 0) {
+        throw new Error("You were born before the time of news")
+      }
+      whenYouWereBornApp.articlesArray = [...shuffleArray(curatedArticlesArray)];
       console.log(whenYouWereBornApp.articlesArray);
       // Call displayArticle method
       whenYouWereBornApp.displayArticle(whenYouWereBornApp.currentArticleIndex);
@@ -143,9 +147,24 @@ whenYouWereBornApp.displayArticle = (index) => {
 };
 
 // filter for quality articles
-whenYouWereBornApp.filterArticle = () => {
-  // abstract string length
-  // presence of byline and all fields that we are using
+whenYouWereBornApp.curatedArticles = (articleArray) => {
+  console.log(articleArray)
+  console.log(articleArray.filter(article => article.abstract.length > 50).filter(article => article.byline.original))
+  return articleArray
+    // abstract string length
+    .filter(article => article.abstract.length > 50)
+    // presence of byline and all fields that we are using
+    .filter(article => article.byline.original)
+    // filter out obituary and archive pieces
+    .filter(article => article.type_of_material !== 'Obituary')
+    // remove 'LEAD' in abstract
+    .map(article => {
+      const copy = { ...article }
+      if (copy.abstract.startsWith('LEAD: ')) {
+        copy.abstract = copy.abstract.slice(6);
+      }
+      return copy;
+    })
 };
 
 // Create an init method to kick off the setup of the application
