@@ -7,8 +7,10 @@ const articleElement = document.querySelector('.article-content');
 const whenYouWereBornApp = {};
 
 // Initialize preset data in the dedicated properties
-// - apiKey
-whenYouWereBornApp.apiKey = '3PVudwxw0pTrDaU6BjIwRtu6a64QHvKB';
+// - nytApiKey
+whenYouWereBornApp.nytApiKey = '3PVudwxw0pTrDaU6BjIwRtu6a64QHvKB';
+// - unsplashAccessKey
+whenYouWereBornApp.unsplashAccessKey = 'e92v_aFnnoM-PnNGYNUNCSJTCQKlukw0-1t06E0pW8U';
 // - userQuery
 whenYouWereBornApp.userQuery = '';
 // - articlesArray
@@ -34,7 +36,7 @@ whenYouWereBornApp.getUserQuery = () => {
 whenYouWereBornApp.getArticles = (date) => {
   const url = new URL('https://api.nytimes.com/svc/search/v2/articlesearch.json');
   url.search = new URLSearchParams({
-    'api-key': whenYouWereBornApp.apiKey,
+    'api-key': whenYouWereBornApp.nytApiKey,
     fq: `pub_date:(${date})`,
   });
   fetch(url)
@@ -67,18 +69,45 @@ whenYouWereBornApp.displayArticle = (index) => {
     keywords,
   } = currentArticle;
 
-  const imgAltText = `image for '${headline}' article`;
+  const multimedia = currentArticle.multimedia;
+  const imgAltText = `image from '${headline}' article`;
+  let imgSrcText = getSrcText(multimedia);
+
+  function getSrcText() {
+    // if multimedia is available, use it
+    if (multimedia[0]) {
+      return 'https://static01.nyt.com/' + multimedia[0].url;
+    } else {
+      // else, get image from unsplash API using keyword(s) as query
+      return getUnsplashImage();
+    }
+  }
+
+  async function getUnsplashImage() {
+    const unsplashUrl = new URL('https://api.unsplash.com/search/photos/');
+    unsplashUrl.search = new URLSearchParams({
+      client_id: whenYouWereBornApp.unsplashAccessKey,
+      query: keywords.length !== 0 ? keywords.map((e) => e.value).join(' ') : headline,
+    });
+    console.log(keywords.map((e) => e.value).join(' '));
+
+    const res = await fetch(unsplashUrl);
+    const data = await res.json();
+    console.log(data);
+    const url = data.results[0].urls.regular;
+    const imgElement = document.querySelector('.article-image-container img');
+    imgElement.src = url;
+    imgElement.alt = `placeholder image for '${headline}' article`;
+  }
 
   const dateElement = document.createElement('div');
   dateElement.classList.add('date');
-  // TO-DO: DISPLAY DATE IN PROPER FORMAT
-  // dateElement.textContent = currentArticle.pub_date.slice(0, 10);
   dateElement.textContent = dateString(pubDate);
 
   const imageContainerElement = document.createElement('div');
   imageContainerElement.classList.add('article-image-container');
   const imageElement = document.createElement('img');
-  imageElement.src = currentArticle.multimedia[0] ? 'https://static01.nyt.com/' + currentArticle.multimedia[0].url : '';
+  imageElement.src = imgSrcText;
   imageElement.alt = imgAltText;
   imageContainerElement.append(imageElement);
 
@@ -114,7 +143,6 @@ whenYouWereBornApp.displayArticle = (index) => {
 };
 
 // filter for quality articles
-
 whenYouWereBornApp.filterArticle = () => {
   // abstract string length
   // presence of byline and all fields that we are using
