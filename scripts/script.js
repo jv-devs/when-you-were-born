@@ -57,6 +57,23 @@ whenYouWereBornApp.getArticles = (date) => {
     });
 };
 
+whenYouWereBornApp.getUnsplashImage = async (keywords, headline) => {
+  const unsplashUrl = new URL('https://api.unsplash.com/search/photos/');
+  unsplashUrl.search = new URLSearchParams({
+    client_id: whenYouWereBornApp.unsplashAccessKey,
+    query: keywords.length !== 0 ? keywords.map((e) => e.value).join(' ') : headline,
+  });
+  console.log(keywords.map((e) => e.value).join(' '));
+
+  const res = await fetch(unsplashUrl);
+  const data = await res.json();
+  console.log(data);
+  const url = data.results[0].urls.regular;
+  const imgElement = document.querySelector('.article-image-container img');
+  imgElement.src = url;
+  imgElement.alt = `placeholder image for '${headline}' article`;
+}
+
 // displayArticle function
 whenYouWereBornApp.displayArticle = (index) => {
   const currentArticle = whenYouWereBornApp.articlesArray[index];
@@ -79,25 +96,8 @@ whenYouWereBornApp.displayArticle = (index) => {
       return 'https://static01.nyt.com/' + multimedia[0].url;
     } else {
       // else, get image from unsplash API using keyword(s) as query
-      return getUnsplashImage();
+      return whenYouWereBornApp.getUnsplashImage(keywords, headline);
     }
-  }
-
-  async function getUnsplashImage() {
-    const unsplashUrl = new URL('https://api.unsplash.com/search/photos/');
-    unsplashUrl.search = new URLSearchParams({
-      client_id: whenYouWereBornApp.unsplashAccessKey,
-      query: keywords.length !== 0 ? keywords.map((e) => e.value).join(' ') : headline,
-    });
-    console.log(keywords.map((e) => e.value).join(' '));
-
-    const res = await fetch(unsplashUrl);
-    const data = await res.json();
-    console.log(data);
-    const url = data.results[0].urls.regular;
-    const imgElement = document.querySelector('.article-image-container img');
-    imgElement.src = url;
-    imgElement.alt = `placeholder image for '${headline}' article`;
   }
 
   const dateElement = document.createElement('div');
