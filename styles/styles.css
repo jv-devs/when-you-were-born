@@ -243,6 +243,7 @@ body {
 }
 
 .container {
+  position: relative;
   max-width: 800px;
   overflow: scroll;
   height: calc(100vh - 30px);
@@ -250,7 +251,6 @@ body {
   width: 90%;
   margin: 0 auto;
   background-color: white;
-  padding: 20px;
 }
 
 img {
@@ -289,7 +289,46 @@ body {
   font-family: "IM Fell English", serif;
 }
 
+header h1 {
+  font-size: clamp(0.1rem, 5vw, 30rem);
+  margin: 0 0 5px 0;
+}
+header .header-top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 25px 36px;
+}
+header .nyt-image-container {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding: 25px;
+  border-top: 5px solid black;
+  border-bottom: 5px solid black;
+}
+header .date-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 1.5rem;
+  -webkit-transition: color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
+}
+header .date-button:hover, header .date-button:focus {
+  color: grey;
+}
+
 .modal {
+  position: absolute;
+  top: -100vh;
+  background: white;
+  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -304,10 +343,14 @@ body {
       -ms-flex-align: center;
           align-items: center;
   text-align: center;
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+  -webkit-box-shadow: 0 2px 5px black;
+          box-shadow: 0 2px 5px black;
+  padding: 0 25px;
 }
-.modal h1 {
-  font-size: clamp(0.1rem, 7.5vw, 30rem);
-  margin-bottom: 5px;
+.modal .modal-title {
+  font-size: 4rem;
 }
 .modal .date-form > * {
   font-family: "IM Fell English", serif;
@@ -315,6 +358,10 @@ body {
 .modal .app-description {
   color: rgb(101, 101, 101);
   font-size: clamp(0.1rem, 3.5vw, 1.5rem);
+}
+
+.active {
+  top: 0;
 }
 
 footer {
@@ -341,14 +388,9 @@ footer p a {
   color: black;
 }
 
-.nyt-image-container {
-  margin-top: 25px;
-  margin-bottom: 25px;
-  padding: 25px;
-  border-top: 5px solid black;
-  border-bottom: 5px solid black;
+article {
+  padding: 30px;
 }
-
 article .article-image-container img {
   -o-object-fit: contain;
      object-fit: contain;

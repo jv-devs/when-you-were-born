@@ -2,6 +2,8 @@
 const formElement = document.querySelector('form');
 const inputElement = document.querySelector('input#date-input');
 const articleElement = document.querySelector('.article-content');
+const dateButtonElement = document.querySelector('.date-button');
+const modalElement = document.querySelector('.modal');
 
 // Create an app object (whenYouWereBorn)
 const whenYouWereBornApp = {};
@@ -18,12 +20,21 @@ whenYouWereBornApp.articlesArray = [];
 // - currentArticle
 whenYouWereBornApp.currentArticleIndex = 0;
 
-// addListensers function
+// addListeners function
 whenYouWereBornApp.addListeners = () => {
+  dateButtonElement.addEventListener('click', () => {
+    modalElement.classList.add('active');
+    setTimeout(() => {
+      document.querySelector('.article-content').innerHTML = '';
+    }, 1000);
+  });
   formElement.addEventListener('submit', (e) => {
     e.preventDefault();
     whenYouWereBornApp.getUserQuery();
     whenYouWereBornApp.getArticles(whenYouWereBornApp.userQuery);
+    setTimeout(() => {
+      modalElement.classList.remove('active');
+    }, 500);
   });
 };
 
