@@ -2,6 +2,8 @@
 const formElement = document.querySelector('form');
 const inputElement = document.querySelector('input#date-input');
 const articleElement = document.querySelector('.article-content');
+const dateButtonElement = document.querySelector('.date-button');
+const modalElement = document.querySelector('.modal');
 
 // Create an app object (whenYouWereBorn)
 const whenYouWereBornApp = {};
@@ -18,12 +20,21 @@ whenYouWereBornApp.articlesArray = [];
 // - currentArticle
 whenYouWereBornApp.currentArticleIndex = 0;
 
-// addListensers function
+// addListeners function
 whenYouWereBornApp.addListeners = () => {
+  dateButtonElement.addEventListener('click', () => {
+    modalElement.classList.add('active');
+    setTimeout(() => {
+      document.querySelector('.article-content').innerHTML = '';
+    }, 1000);
+  });
   formElement.addEventListener('submit', (e) => {
     e.preventDefault();
     whenYouWereBornApp.getUserQuery();
     whenYouWereBornApp.getArticles(whenYouWereBornApp.userQuery);
+    setTimeout(() => {
+      modalElement.classList.remove('active');
+    }, 500);
   });
 };
 
@@ -46,7 +57,11 @@ whenYouWereBornApp.getArticles = (date) => {
     })
     .then((jsonResult) => {
       // If article includes all the required data
-      whenYouWereBornApp.articlesArray = [...shuffleArray(jsonResult.response.docs)];
+      const curatedArticlesArray = whenYouWereBornApp.curatedArticles(jsonResult.response.docs);
+      if (curatedArticlesArray.length === 0) {
+        throw new Error("You were born before the time of news")
+      }
+      whenYouWereBornApp.articlesArray = [...shuffleArray(curatedArticlesArray)];
       console.log(whenYouWereBornApp.articlesArray);
       // Call displayArticle method
       whenYouWereBornApp.displayArticle(whenYouWereBornApp.currentArticleIndex);
@@ -56,6 +71,23 @@ whenYouWereBornApp.getArticles = (date) => {
       console.log(err);
     });
 };
+
+whenYouWereBornApp.getUnsplashImage = async (keywords, headline) => {
+  const unsplashUrl = new URL('https://api.unsplash.com/search/photos/');
+  unsplashUrl.search = new URLSearchParams({
+    client_id: whenYouWereBornApp.unsplashAccessKey,
+    query: keywords.length !== 0 ? keywords.map((e) => e.value).join(' ') : headline,
+  });
+  console.log(keywords.map((e) => e.value).join(' '));
+
+  const res = await fetch(unsplashUrl);
+  const data = await res.json();
+  console.log(data);
+  const url = data.results[0].urls.regular;
+  const imgElement = document.querySelector('.article-image-container img');
+  imgElement.src = url;
+  imgElement.alt = `placeholder image for '${headline}' article`;
+}
 
 // displayArticle function
 whenYouWereBornApp.displayArticle = (index) => {
@@ -79,25 +111,8 @@ whenYouWereBornApp.displayArticle = (index) => {
       return 'https://static01.nyt.com/' + multimedia[0].url;
     } else {
       // else, get image from unsplash API using keyword(s) as query
-      return getUnsplashImage();
+      return whenYouWereBornApp.getUnsplashImage(keywords, headline);
     }
-  }
-
-  async function getUnsplashImage() {
-    const unsplashUrl = new URL('https://api.unsplash.com/search/photos/');
-    unsplashUrl.search = new URLSearchParams({
-      client_id: whenYouWereBornApp.unsplashAccessKey,
-      query: keywords.length !== 0 ? keywords.map((e) => e.value).join(' ') : headline,
-    });
-    console.log(keywords.map((e) => e.value).join(' '));
-
-    const res = await fetch(unsplashUrl);
-    const data = await res.json();
-    console.log(data);
-    const url = data.results[0].urls.regular;
-    const imgElement = document.querySelector('.article-image-container img');
-    imgElement.src = url;
-    imgElement.alt = `placeholder image for '${headline}' article`;
   }
 
   const dateElement = document.createElement('div');
@@ -143,9 +158,24 @@ whenYouWereBornApp.displayArticle = (index) => {
 };
 
 // filter for quality articles
-whenYouWereBornApp.filterArticle = () => {
-  // abstract string length
-  // presence of byline and all fields that we are using
+whenYouWereBornApp.curatedArticles = (articleArray) => {
+  console.log(articleArray)
+  console.log(articleArray.filter(article => article.abstract.length > 50).filter(article => article.byline.original))
+  return articleArray
+    // abstract string length
+    .filter(article => article.abstract.length > 50)
+    // presence of byline and all fields that we are using
+    .filter(article => article.byline.original)
+    // filter out obituary and archive pieces
+    .filter(article => article.type_of_material !== 'Obituary')
+    // remove 'LEAD' in abstract
+    .map(article => {
+      const copy = { ...article }
+      if (copy.abstract.startsWith('LEAD: ')) {
+        copy.abstract = copy.abstract.slice(6);
+      }
+      return copy;
+    })
 };
 
 // Create an init method to kick off the setup of the application

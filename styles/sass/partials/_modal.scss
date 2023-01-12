@@ -1,15 +1,23 @@
 @use 'variables' as *;
 
 .modal {
+  position: absolute;
+  top: -100vh;
+  background: white;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  h1 {
-    font-size: clamp(0.1rem, 7.5vw, 30rem);
-    margin-bottom: 5px;
+  transition: all 1s ease-in-out;
+  box-shadow: 0 2px 5px black;
+  padding: 0 25px;
+
+  .modal-title {
+    font-size: 4rem;
   }
+  
   .date-form > * {
     font-family: $body-font;
   }
@@ -17,4 +25,8 @@
     color: rgb(101, 101, 101);
     font-size: clamp(0.1rem, 3.5vw, 1.5rem);
   }
+}
+
+.active {
+  top: 0;
 }

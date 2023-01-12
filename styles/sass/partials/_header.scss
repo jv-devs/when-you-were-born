@@ -1,0 +1,31 @@
+@use 'variables' as *;
+
+header {
+  h1 {
+    font-size: clamp(0.1rem, 5vw, 30rem);
+    margin: 0 0 5px 0;
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 25px 36px;
+  }
+  .nyt-image-container {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding: 25px;
+    border-top: 5px solid black;
+    border-bottom: 5px solid black;
+  }
+  .date-button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: color 0.2s ease-in-out;
+    &:hover, &:focus {
+      color: $primary-bg;
+    }
+  }
+}
