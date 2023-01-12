@@ -17,10 +17,21 @@
   .modal-title {
     font-size: 4rem;
   }
-  
+
   .date-form > * {
     font-family: $body-font;
+    border-radius: 4px;
+    padding: 10px;
   }
+
+  .date-form {
+    display: flex;
+    gap: 10px;
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
   .app-description {
     color: rgb(101, 101, 101);
     font-size: clamp(0.1rem, 3.5vw, 1.5rem);
