@@ -4,6 +4,8 @@ const inputElement = document.querySelector('input#date-input');
 const articleElement = document.querySelector('.article-content');
 const dateButtonElement = document.querySelector('.date-button');
 const modalElement = document.querySelector('.modal');
+const nextButtonElement = document.querySelector('.next')
+const prevButtonElement = document.querySelector('.prev')
 
 // Create an app object (whenYouWereBorn)
 const whenYouWereBornApp = {};
@@ -36,6 +38,24 @@ whenYouWereBornApp.addListeners = () => {
       modalElement.classList.remove('active');
     }, 500);
   });
+  nextButtonElement.addEventListener('click', () => {
+    const articles = whenYouWereBornApp.articlesArray;
+    const index = whenYouWereBornApp.currentArticleIndex;
+    // checking the index value is valid for the array just helps prevent console errors.
+    if (index < articles.length - 1) {
+      // whenYouWereBornApp.currentArticleIndex++
+      whenYouWereBornApp.displayArticle(++whenYouWereBornApp.currentArticleIndex);
+    }
+  })
+  prevButtonElement.addEventListener('click', () => {
+    const articles = whenYouWereBornApp.articlesArray;
+    const index = whenYouWereBornApp.currentArticleIndex;
+    // checking the index value is valid for the array just helps prevent console errors.
+    if (index > 0) {
+      // whenYouWereBornApp.currentArticleIndex--
+      whenYouWereBornApp.displayArticle(--whenYouWereBornApp.currentArticleIndex);
+    }
+  })
 };
 
 // Create a method (getUserQuery) to update the variable (userQuery) based on user input
