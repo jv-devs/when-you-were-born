@@ -59,10 +59,9 @@ whenYouWereBornApp.getArticles = (date) => {
       // If article includes all the required data
       const curatedArticlesArray = whenYouWereBornApp.curatedArticles(jsonResult.response.docs);
       if (curatedArticlesArray.length === 0) {
-        throw new Error("You were born before the time of news")
+        throw new Error('You were born before the time of news');
       }
-      whenYouWereBornApp.articlesArray = [...shuffleArray(curatedArticlesArray)];
-      console.log(whenYouWereBornApp.articlesArray);
+      whenYouWereBornApp.articlesArray = [...whenYouWereBornApp.helperFunctions.shuffleArray(curatedArticlesArray)];
       // Call displayArticle method
       whenYouWereBornApp.displayArticle(whenYouWereBornApp.currentArticleIndex);
     })
@@ -78,16 +77,13 @@ whenYouWereBornApp.getUnsplashImage = async (keywords, headline) => {
     client_id: whenYouWereBornApp.unsplashAccessKey,
     query: keywords.length !== 0 ? keywords.map((e) => e.value).join(' ') : headline,
   });
-  console.log(keywords.map((e) => e.value).join(' '));
-
   const res = await fetch(unsplashUrl);
   const data = await res.json();
-  console.log(data);
   const url = data.results[0].urls.regular;
   const imgElement = document.querySelector('.article-image-container img');
   imgElement.src = url;
   imgElement.alt = `placeholder image for '${headline}' article`;
-}
+};
 
 // displayArticle function
 whenYouWereBornApp.displayArticle = (index) => {
@@ -103,21 +99,11 @@ whenYouWereBornApp.displayArticle = (index) => {
 
   const multimedia = currentArticle.multimedia;
   const imgAltText = `image from '${headline}' article`;
-  let imgSrcText = getSrcText(multimedia);
-
-  function getSrcText() {
-    // if multimedia is available, use it
-    if (multimedia[0]) {
-      return 'https://static01.nyt.com/' + multimedia[0].url;
-    } else {
-      // else, get image from unsplash API using keyword(s) as query
-      return whenYouWereBornApp.getUnsplashImage(keywords, headline);
-    }
-  }
+  let imgSrcText = whenYouWereBornApp.helperFunctions.getSrcText(multimedia, keywords, headline);
 
   const dateElement = document.createElement('div');
   dateElement.classList.add('date');
-  dateElement.textContent = dateString(pubDate);
+  dateElement.textContent = whenYouWereBornApp.helperFunctions.dateString(pubDate);
 
   const imageContainerElement = document.createElement('div');
   imageContainerElement.classList.add('article-image-container');
@@ -159,23 +145,54 @@ whenYouWereBornApp.displayArticle = (index) => {
 
 // filter for quality articles
 whenYouWereBornApp.curatedArticles = (articleArray) => {
-  console.log(articleArray)
-  console.log(articleArray.filter(article => article.abstract.length > 50).filter(article => article.byline.original))
-  return articleArray
-    // abstract string length
-    .filter(article => article.abstract.length > 50)
-    // presence of byline and all fields that we are using
-    .filter(article => article.byline.original)
-    // filter out obituary and archive pieces
-    .filter(article => article.type_of_material !== 'Obituary')
-    // remove 'LEAD' in abstract
-    .map(article => {
-      const copy = { ...article }
-      if (copy.abstract.startsWith('LEAD: ')) {
-        copy.abstract = copy.abstract.slice(6);
-      }
-      return copy;
-    })
+  return (
+    articleArray
+      // abstract string length
+      .filter((article) => article.abstract.length > 50)
+      // presence of byline and all fields that we are using
+      .filter((article) => article.byline.original)
+      // filter out obituary and archive pieces
+      .filter((article) => article.type_of_material !== 'Obituary')
+      // remove 'LEAD' in abstract
+      .map((article) => {
+        const copy = { ...article };
+        if (copy.abstract.startsWith('LEAD: ')) {
+          copy.abstract = copy.abstract.slice(6);
+        }
+        return copy;
+      })
+  );
+};
+
+// helper functions
+whenYouWereBornApp.helperFunctions = {
+  shuffleArray: (arr) => {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  },
+  dateString: (date) => {
+    const newDate = new Date(date);
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    };
+
+    let result = newDate.toLocaleDateString('en-US', options);
+    return result;
+  },
+  getSrcText: (multimedia, keywords, headline) => {
+    // if multimedia is available, use it
+    if (multimedia[0]) {
+      return 'https://static01.nyt.com/' + multimedia[0].url;
+    } else {
+      // else, get image from unsplash API using keyword(s) as query
+      return whenYouWereBornApp.getUnsplashImage(keywords, headline);
+    }
+  },
 };
 
 // Create an init method to kick off the setup of the application
@@ -184,26 +201,3 @@ whenYouWereBornApp.init = () => {
 };
 
 whenYouWereBornApp.init();
-
-// helper functions
-
-// shuffleArray Function
-function shuffleArray(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
-function dateString(date) {
-  const newDate = new Date(date);
-  const options = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  };
-
-  let result = newDate.toLocaleDateString('en-US', options);
-  return result;
-}
