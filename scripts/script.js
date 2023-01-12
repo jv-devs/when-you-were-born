@@ -199,6 +199,8 @@ whenYouWereBornApp.helperFunctions = {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
+      // fixes timezone bug that results in the wrong date showing up
+      timeZone: 'UTC',
     };
 
     let result = newDate.toLocaleDateString('en-US', options);
