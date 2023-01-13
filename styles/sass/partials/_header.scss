@@ -1,0 +1,30 @@
+@use 'variables' as *;
+
+header {
+  h1 {
+    font-size: 3rem;
+    margin: 0;
+    @media (max-width: $mq-tablet) {
+      font-size: 2rem;
+    }
+    @media (max-width: $mq-mobile-lg) {
+      font-size: 1.5rem;
+    }
+    @media (max-width: $mq-mobile-sm) {
+      font-size: 1.1rem;
+    }
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 25px 36px;
+  }
+  .nyt-image-container {
+    width: 90%;
+    margin: 25px auto;
+    padding: 25px;
+    border-top: 5px solid black;
+    border-bottom: 5px solid black;
+  }
+}

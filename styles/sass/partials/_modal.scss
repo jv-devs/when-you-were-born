@@ -1,0 +1,49 @@
+@use 'variables' as *;
+
+.modal {
+  position: absolute;
+  top: -100vh;
+  background: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: all 1s ease-in-out;
+  box-shadow: 0 2px 5px black;
+  padding: 0 25px;
+
+  .modal-title {
+    font-size: 4rem;
+    @media (max-width: $mq-mobile-lg) {
+      font-size: 3.5rem;
+    }
+    @media (max-width: $mq-mobile-sm) {
+      font-size: 3rem;
+    }
+  }
+
+  .date-form > * {
+    font-family: $body-font;
+    border-radius: 4px;
+    padding: 10px;
+  }
+
+  .date-form {
+    display: flex;
+    gap: 10px;
+    @media (max-width: $mq-tablet) {
+      flex-direction: column;
+    }
+  }
+
+  .app-description {
+    color: rgb(101, 101, 101);
+    font-size: clamp(0.1rem, 3.5vw, 1.5rem);
+  }
+}
+
+.active {
+  top: 0;
+}

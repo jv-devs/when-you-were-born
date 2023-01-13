@@ -1,0 +1,35 @@
+@use 'variables' as *;
+
+.button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: all 0.2s ease-in-out;
+  &:hover,
+  &:focus-visible {
+    color: $primary;
+    border-color: $primary;
+  }
+}
+
+.cycle-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  padding-bottom: 25px;
+}
+
+.prev-button,
+.next-button,
+.date-button {
+  border: 3px solid black;
+  border-radius: 3px;
+}
+
+.inactive {
+  cursor: default !important;
+  color: $secondary !important;
+  border-color: $secondary !important;
+}

@@ -1,0 +1,503 @@
+@import url("https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap");
+html {
+  line-height: 1.15;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+article, aside, footer, header, nav, section {
+  display: block;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+figcaption, figure, main {
+  display: block;
+}
+
+figure {
+  margin: 1em 40px;
+}
+
+hr {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+
+pre {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+a {
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+}
+
+abbr[title] {
+  border-bottom: none;
+  text-decoration: underline;
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+}
+
+b, strong {
+  font-weight: inherit;
+}
+
+b, strong {
+  font-weight: bolder;
+}
+
+code, kbd, samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+dfn {
+  font-style: italic;
+}
+
+mark {
+  background-color: #ff0;
+  color: #000;
+}
+
+small {
+  font-size: 80%;
+}
+
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+audio, video {
+  display: inline-block;
+}
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+img {
+  border-style: none;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+button, input, optgroup, select, textarea {
+  font-family: sans-serif;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+
+button, input {
+  overflow: visible;
+}
+
+button, select {
+  text-transform: none;
+}
+
+button, html [type=button], [type=reset], [type=submit] {
+  -webkit-appearance: button;
+}
+
+button::-moz-focus-inner, [type=button]::-moz-focus-inner, [type=reset]::-moz-focus-inner, [type=submit]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+button:-moz-focusring, [type=button]:-moz-focusring, [type=reset]:-moz-focusring, [type=submit]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+
+legend {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: inherit;
+  display: table;
+  max-width: 100%;
+  padding: 0;
+  white-space: normal;
+}
+
+progress {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+textarea {
+  overflow: auto;
+}
+
+[type=checkbox], [type=radio] {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0;
+}
+
+[type=number]::-webkit-inner-spin-button, [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+[type=search] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+
+[type=search]::-webkit-search-cancel-button, [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+
+details, menu {
+  display: block;
+}
+
+summary {
+  display: list-item;
+}
+
+canvas {
+  display: inline-block;
+}
+
+template {
+  display: none;
+}
+
+[hidden] {
+  display: none;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  -webkit-clip-path: inset(100%);
+          clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+/* fonts */
+/* colours */
+/* dimensions */
+/* media query breakpoints*/
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.container {
+  position: relative;
+  max-width: 800px;
+  overflow-y: scroll;
+  height: calc(100vh - 30px);
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+  background-color: white;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.background-image {
+  height: 100vh;
+  position: relative;
+  background-image: url(../../../images/bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.background-image::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: white;
+  opacity: 0.75;
+}
+
+body {
+  font-family: "IM Fell English", serif;
+}
+
+header h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 425px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 375px) {
+  header h1 {
+    font-size: 1.1rem;
+  }
+}
+header .header-top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 25px 36px;
+}
+header .nyt-image-container {
+  width: 90%;
+  margin: 25px auto;
+  padding: 25px;
+  border-top: 5px solid black;
+  border-bottom: 5px solid black;
+}
+
+.modal {
+  position: absolute;
+  top: -100vh;
+  background: white;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+  -webkit-box-shadow: 0 2px 5px black;
+          box-shadow: 0 2px 5px black;
+  padding: 0 25px;
+}
+.modal .modal-title {
+  font-size: 4rem;
+}
+@media (max-width: 425px) {
+  .modal .modal-title {
+    font-size: 3.5rem;
+  }
+}
+@media (max-width: 375px) {
+  .modal .modal-title {
+    font-size: 3rem;
+  }
+}
+.modal .date-form > * {
+  font-family: "IM Fell English", serif;
+  border-radius: 4px;
+  padding: 10px;
+}
+.modal .date-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+}
+@media (max-width: 768px) {
+  .modal .date-form {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+.modal .app-description {
+  color: rgb(101, 101, 101);
+  font-size: clamp(0.1rem, 3.5vw, 1.5rem);
+}
+
+.active {
+  top: 0;
+}
+
+footer {
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: grey;
+  width: 100%;
+}
+footer p {
+  padding: 5px 0;
+  margin: 0;
+}
+footer p a {
+  color: black;
+}
+
+article {
+  padding: 30px;
+}
+article img {
+  -o-object-fit: contain;
+     object-fit: contain;
+  height: 100%;
+  padding: 5px;
+  border: 3px solid black;
+  -webkit-box-shadow: -5px 5px 1px black;
+          box-shadow: -5px 5px 1px black;
+  margin: 0 auto;
+}
+article figcaption {
+  font-size: 0.9rem;
+  margin-top: 10px;
+  font-style: italic;
+}
+article .date,
+article .headline,
+article .byline,
+article .section-name {
+  text-align: center;
+  padding-bottom: 25px;
+}
+article .section-name {
+  font-style: italic;
+  padding: 0;
+  margin-bottom: 10px;
+}
+article .headline {
+  font-size: 1.75rem;
+  padding: 0;
+  margin: 5px 0;
+}
+article .byline {
+  font-style: italic;
+}
+
+.button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 1.5rem;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.button:hover, .button:focus-visible {
+  color: rgb(82, 82, 143);
+  border-color: rgb(82, 82, 143);
+}
+
+.cycle-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 25px;
+  padding-bottom: 25px;
+}
+
+.prev-button,
+.next-button,
+.date-button {
+  border: 3px solid black;
+  border-radius: 3px;
+}
+
+.inactive {
+  cursor: default !important;
+  color: grey !important;
+  border-color: grey !important;
+}
+
+.error-message {
+  background-color: lightcoral;
+  margin-top: 25px;
+  padding: 10px;
+  border: 3px solid red;
+  border-radius: 4px;
+  color: black;
+  display: none;
+}
+
+.show {
+  display: block;
+}
