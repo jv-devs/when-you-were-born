@@ -227,8 +227,10 @@ html {
   overflow: hidden;
 }
 
-/* site fonts */
-/* utility classes */
+/* fonts */
+/* colours */
+/* dimensions */
+/* media query breakpoints*/
 body {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -281,8 +283,23 @@ body {
 }
 
 header h1 {
-  font-size: clamp(0.1rem, 5vw, 30rem);
-  margin: 0 0 5px 0;
+  font-size: 3rem;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+}
+@media (max-width: 425px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 375px) {
+  header h1 {
+    font-size: 1.1rem;
+  }
 }
 header .header-top {
   display: -webkit-box;
@@ -331,6 +348,16 @@ header .nyt-image-container {
 }
 .modal .modal-title {
   font-size: 4rem;
+}
+@media (max-width: 425px) {
+  .modal .modal-title {
+    font-size: 3.5rem;
+  }
+}
+@media (max-width: 375px) {
+  .modal .modal-title {
+    font-size: 3rem;
+  }
 }
 .modal .date-form > * {
   font-family: "IM Fell English", serif;

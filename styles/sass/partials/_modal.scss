@@ -16,6 +16,12 @@
 
   .modal-title {
     font-size: 4rem;
+    @media (max-width: $mq-mobile-lg) {
+      font-size: 3.5rem;
+    }
+    @media (max-width: $mq-mobile-sm) {
+      font-size: 3rem;
+    }
   }
 
   .date-form > * {
@@ -27,7 +33,7 @@
   .date-form {
     display: flex;
     gap: 10px;
-    @media (max-width: 768px) {
+    @media (max-width: $mq-tablet) {
       flex-direction: column;
     }
   }

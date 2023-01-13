@@ -8,8 +8,8 @@
   transition: all 0.2s ease-in-out;
   &:hover,
   &:focus-visible {
-    color: $primary-bg;
-    border-color: $primary-bg;
+    color: $primary;
+    border-color: $primary;
   }
 }
 
@@ -30,6 +30,6 @@
 
 .inactive {
   cursor: default !important;
-  color: $secondary-bg !important;
-  border-color: $secondary-bg !important;
+  color: $secondary !important;
+  border-color: $secondary !important;
 }
