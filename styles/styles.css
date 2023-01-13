@@ -245,7 +245,7 @@ body {
 .container {
   position: relative;
   max-width: 800px;
-  overflow: scroll;
+  overflow-y: scroll;
   height: calc(100vh - 30px);
   display: block;
   width: 90%;
@@ -276,15 +276,6 @@ img {
   opacity: 0.75;
 }
 
-.nyt-image-container {
-  width: 90%;
-  margin: 0 auto;
-}
-
-.article-content img {
-  margin: 0 auto;
-}
-
 body {
   font-family: "IM Fell English", serif;
 }
@@ -306,8 +297,8 @@ header .header-top {
   margin: 25px 36px;
 }
 header .nyt-image-container {
-  margin-top: 25px;
-  margin-bottom: 25px;
+  width: 90%;
+  margin: 25px auto;
   padding: 25px;
   border-top: 5px solid black;
   border-bottom: 5px solid black;
@@ -384,9 +375,7 @@ footer {
   width: 100%;
 }
 footer p {
-  text-align: center;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 5px 0;
   margin: 0;
 }
 footer p a {
@@ -396,7 +385,7 @@ footer p a {
 article {
   padding: 30px;
 }
-article .article-image-container img {
+article img {
   -o-object-fit: contain;
      object-fit: contain;
   height: 100%;
@@ -404,6 +393,7 @@ article .article-image-container img {
   border: 3px solid black;
   -webkit-box-shadow: -5px 5px 1px black;
           box-shadow: -5px 5px 1px black;
+  margin: 0 auto;
 }
 article .date,
 article .headline,
@@ -418,12 +408,25 @@ article .section-name {
   margin-bottom: 10px;
 }
 article .headline {
+  font-size: 1.75rem;
   padding: 0;
   margin: 5px 0;
-  font-size: 1.75rem;
 }
 article .byline {
   font-style: italic;
+}
+
+.button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 1.5rem;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.button:hover, .button:focus-visible {
+  color: rgb(82, 82, 143);
+  border-color: rgb(82, 82, 143);
 }
 
 .cycle-buttons {
@@ -440,19 +443,6 @@ article .byline {
   padding-bottom: 25px;
 }
 
-.button {
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  font-size: 1.5rem;
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
-.button:hover, .button:focus-visible {
-  color: rgb(82, 82, 143);
-  border-color: rgb(82, 82, 143);
-}
-
 .prev-button,
 .next-button {
   border: 3px solid black;
@@ -463,4 +453,18 @@ article .byline {
   cursor: default !important;
   color: grey !important;
   border-color: grey !important;
+}
+
+.error-message {
+  background-color: lightcoral;
+  margin-top: 25px;
+  padding: 10px;
+  border: 3px solid red;
+  border-radius: 4px;
+  color: black;
+  display: none;
+}
+
+.show {
+  display: block;
 }

@@ -9,7 +9,7 @@ body {
 .container {
   position: relative;
   max-width: 800px;
-  overflow: scroll;
+  overflow-y: scroll;
   height: calc(100vh - $footer-height);
   display: block;
   width: 90%;
@@ -38,13 +38,4 @@ img {
   inset: 0;
   background: white;
   opacity: 0.75;
-}
-
-.nyt-image-container {
-  width: 90%;
-  margin: 0 auto;
-}
-
-.article-content img {
-  margin: 0 auto;
 }

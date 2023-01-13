@@ -1,51 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>When You Were Born</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./styles/styles.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>When You Were Born</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="./styles/styles.css" />
-</head>
-
-<body class="background-image">
-  <main class="container">
-    <section class="modal active">
-      <div class="modal-title">When You Were Born</div>
-      <p class="app-description">Have you ever wondered what was on the news on the day you were born? Enter your DOB to
-        find out!</p>
-      <form action="#" class="date-form">
-        <label class="sr-only" for="date-input">enter birth date</label>
-        <input type="date" name="date-input" id="date-input" required />
-        <button type="submit">Show me the money</button>
-      </form>
-    </section>
-    <header>
-      <div class="header-top">
-        <h1>When You Were Born</h1>
-        <button class="date-button button" aria-label="return to date input"><i
-            class="fa-sharp fa-solid fa-calendar-days"></i></button>
-      </div>
-      <div class="nyt-image-container"><img src="./images/nyt.svg" alt="New York Times logo" /></div>
-    </header>
-    </header>
-    <article>
-      <div class="cycle-buttons">
-        <button class="prev-button button"><i class="fa-regular fa-hand-point-left"></i></button>
-        <div class="page-display"></div>
-        <button class="next-button button"><i class="fa-regular fa-hand-point-right"></i></button>
-      </div>
-      <div class="article-content"></div>
-    </article>
-  </main>
-  <footer>
-    <p><a href="https://junocollege.com/" target="_blank">Created at Juno College</a></p>
-  </footer>
-  <script src="./scripts/script.js"></script>
-</body>
-
+  <body class="background-image">
+    <main class="container">
+      <section class="modal active">
+        <div class="modal-title">When You Were Born</div>
+        <p class="app-description">Have you ever wondered what was on the news on the day you were born? Enter your DOB to find out!</p>
+        <form action="#" class="date-form">
+          <label class="sr-only" for="date-input">enter birth date</label>
+          <input type="date" name="date-input" id="date-input" required />
+          <button type="submit">Show me the money</button>
+        </form>
+        <div class="error-message">Error Message Here</div>
+      </section>
+      <header>
+        <div class="header-top">
+          <h1>When You Were Born</h1>
+          <button class="date-button button" aria-label="return to date input"><i class="fa-sharp fa-solid fa-calendar-days"></i></button>
+        </div>
+        <div class="nyt-image-container"><img src="./images/nyt.svg" alt="New York Times logo" /></div>
+      </header>
+      <article>
+        <div class="cycle-buttons">
+          <button class="prev-button button"><i class="fa-regular fa-hand-point-left"></i></button>
+          <div class="page-display"></div>
+          <button class="next-button button"><i class="fa-regular fa-hand-point-right"></i></button>
+        </div>
+        <div class="article-content"></div>
+      </article>
+    </main>
+    <footer>
+      <p><a href="https://junocollege.com/" target="_blank">Created at Juno College</a></p>
+    </footer>
+    <script src="./scripts/script.js"></script>
+  </body>
 </html>

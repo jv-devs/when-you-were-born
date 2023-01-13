@@ -1,13 +1,5 @@
 @use 'variables' as *;
 
-.cycle-buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
-  padding-bottom: 25px;
-}
-
 .button {
   border: none;
   background-color: transparent;
@@ -21,7 +13,15 @@
   }
 }
 
-.prev-button, 
+.cycle-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  padding-bottom: 25px;
+}
+
+.prev-button,
 .next-button {
   border: 3px solid black;
   border-radius: 3px;
