@@ -449,7 +449,8 @@ article .byline {
 }
 
 .prev-button,
-.next-button {
+.next-button,
+.date-button {
   border: 3px solid black;
   border-radius: 3px;
 }
