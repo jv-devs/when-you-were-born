@@ -43,15 +43,16 @@ whenYouWereBornApp.addListeners = () => {
   nextButtonElement.addEventListener('click', () => {
     const articles = whenYouWereBornApp.articlesArray;
     let index = whenYouWereBornApp.currentArticleIndex;
-    // checking the index value is valid for the array just helps prevent console errors.
+    // go to next article (increase index by 1)
     if (index < articles.length - 1) {
-      // whenYouWereBornApp.currentArticleIndex++
       whenYouWereBornApp.displayArticle(++whenYouWereBornApp.currentArticleIndex);
       ++index;
     }
+    // when not on the first article
     if (index > 0) {
       prevButtonElement.classList.remove('inactive');
     }
+    // when on the last article
     if (index === articles.length - 1) {
       nextButtonElement.classList.add('inactive');
     }
@@ -59,15 +60,17 @@ whenYouWereBornApp.addListeners = () => {
   prevButtonElement.addEventListener('click', () => {
     const articles = whenYouWereBornApp.articlesArray;
     let index = whenYouWereBornApp.currentArticleIndex;
-    // checking the index value is valid for the array just helps prevent console errors.
+    // go to prev article (decrease index by 1)
     if (index > 0) {
       // whenYouWereBornApp.currentArticleIndex--
       whenYouWereBornApp.displayArticle(--whenYouWereBornApp.currentArticleIndex);
       --index;
     }
+    // when on the last article
     if (whenYouWereBornApp.currentArticleIndex === 0) {
       prevButtonElement.classList.add('inactive');
     }
+    // when not on the last article
     if (index < articles.length - 1) {
       nextButtonElement.classList.remove('inactive');
     }
@@ -122,15 +125,23 @@ whenYouWereBornApp.getUnsplashImage = async (keywords, headline) => {
   });
   const res = await fetch(unsplashUrl);
   const data = await res.json();
-  const url = data.results[0].urls.regular;
+  const image = data.results[0];
+  const url = image.urls.regular;
+  const user = image.user.name;
+  const userLink = image.user.links.html;
+  const imageLink = image.links.html;
   const imgElement = document.querySelector('article img');
   imgElement.src = url;
-  imgElement.alt = `placeholder image for '${headline}' article`;
+  imgElement.alt = `placeholder image from Unsplash by ${user}`;
+  document.querySelector('figcaption').innerHTML = `
+  Placeholder <a href='${imageLink}' target='_blank'>image</a> from Unsplash by <a href='${userLink}' target='_blank'>${user}</a>
+  `;
 };
 
 // displayArticle function
 whenYouWereBornApp.displayArticle = (index) => {
   const currentArticle = whenYouWereBornApp.articlesArray[index];
+  console.log(currentArticle);
   const {
     pub_date: pubDate,
     headline: { main: headline },
@@ -138,22 +149,28 @@ whenYouWereBornApp.displayArticle = (index) => {
     byline: { original: byline },
     abstract,
     keywords,
+    web_url: webUrl,
   } = currentArticle;
 
   const multimedia = currentArticle.multimedia;
-  const imgAltText = `image from '${headline}' article`;
+  const imgAltText = `Image from '${headline}' article`;
   let imgSrcText = whenYouWereBornApp.helperFunctions.getSrcText(multimedia, keywords, headline);
 
   const dateElement = document.createElement('div');
   dateElement.classList.add('date');
   dateElement.textContent = whenYouWereBornApp.helperFunctions.dateString(pubDate);
 
+  const figureElement = document.createElement('figure');
   const imageContainerElement = document.createElement('div');
   imageContainerElement.classList.add('article-image-container');
   const imageElement = document.createElement('img');
   imageElement.src = imgSrcText;
   imageElement.alt = imgAltText;
   imageContainerElement.append(imageElement);
+  figureElement.append(imageContainerElement);
+  const figCaptionElement = document.createElement('figcaption');
+  figCaptionElement.textContent = imgAltText;
+  figureElement.append(figCaptionElement);
 
   // headline
   const headlineElement = document.createElement('h2');
@@ -175,11 +192,19 @@ whenYouWereBornApp.displayArticle = (index) => {
   abstractElement.classList.add('abstract');
   abstractElement.textContent = abstract;
 
+  // article link
+  const articleLink = document.createElement('a');
+  articleLink.href = webUrl;
+  articleLink.target = '_blank';
+  articleLink.textContent = 'Read more';
+  abstractElement.append(' ');
+  abstractElement.append(articleLink);
+
   // add elements to .article-content
   const articleContentElement = document.querySelector('.article-content');
   articleContentElement.innerHTML = '';
   articleContentElement.append(dateElement);
-  articleContentElement.append(imageContainerElement);
+  articleContentElement.append(figureElement);
   articleContentElement.append(sectionNameElement);
   articleContentElement.append(headlineElement);
   articleContentElement.append(bylineElement);
@@ -199,11 +224,9 @@ whenYouWereBornApp.curatedArticles = (articleArray) => {
   return (
     articleArray
       // abstract string length
-      .filter((article) => article.abstract.length > 50)
       // presence of byline and all fields that we are using
-      .filter((article) => article.byline.original)
       // filter out obituary and archive pieces
-      .filter((article) => article.type_of_material !== 'Obituary')
+      .filter((article) => article.abstract.length > 50 && article.byline.original && article.type_of_material !== 'Obituary')
       // remove 'LEAD' in abstract
       .map((article) => {
         const copy = { ...article };
