@@ -141,6 +141,7 @@ whenYouWereBornApp.getUnsplashImage = async (keywords, headline) => {
 // displayArticle function
 whenYouWereBornApp.displayArticle = (index) => {
   const currentArticle = whenYouWereBornApp.articlesArray[index];
+  console.log(currentArticle);
   const {
     pub_date: pubDate,
     headline: { main: headline },
@@ -148,6 +149,7 @@ whenYouWereBornApp.displayArticle = (index) => {
     byline: { original: byline },
     abstract,
     keywords,
+    web_url: webUrl,
   } = currentArticle;
 
   const multimedia = currentArticle.multimedia;
@@ -189,6 +191,14 @@ whenYouWereBornApp.displayArticle = (index) => {
   const abstractElement = document.createElement('div');
   abstractElement.classList.add('abstract');
   abstractElement.textContent = abstract;
+
+  // article link
+  const articleLink = document.createElement('a');
+  articleLink.href = webUrl;
+  articleLink.target = '_blank';
+  articleLink.textContent = 'Read more';
+  abstractElement.append(' ');
+  abstractElement.append(articleLink);
 
   // add elements to .article-content
   const articleContentElement = document.querySelector('.article-content');
