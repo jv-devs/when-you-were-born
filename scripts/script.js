@@ -39,11 +39,6 @@ whenYouWereBornApp.addListeners = () => {
     errorMessageElement.textContent = '';
     whenYouWereBornApp.getUserQuery();
     whenYouWereBornApp.getArticles(whenYouWereBornApp.userQuery);
-    setTimeout(() => {
-      if (whenYouWereBornApp.articlesArray.length > 0) {
-        modalElement.classList.remove('active');
-      }
-    }, 500);
   });
   nextButtonElement.addEventListener('click', () => {
     const articles = whenYouWereBornApp.articlesArray;
@@ -128,7 +123,7 @@ whenYouWereBornApp.getUnsplashImage = async (keywords, headline) => {
   const res = await fetch(unsplashUrl);
   const data = await res.json();
   const url = data.results[0].urls.regular;
-  const imgElement = document.querySelector('.article-image-container img');
+  const imgElement = document.querySelector('article img');
   imgElement.src = url;
   imgElement.alt = `placeholder image for '${headline}' article`;
 };
@@ -192,6 +187,11 @@ whenYouWereBornApp.displayArticle = (index) => {
 
   // update page display
   pageDisplayElement.textContent = `${whenYouWereBornApp.currentArticleIndex + 1}/${whenYouWereBornApp.articlesArray.length}`;
+
+  // hide modal AFTER DOM has been populated with article content
+  if (whenYouWereBornApp.articlesArray.length > 0) {
+    modalElement.classList.remove('active');
+  }
 };
 
 // filter for quality articles
