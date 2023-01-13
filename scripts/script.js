@@ -28,6 +28,7 @@ whenYouWereBornApp.currentArticleIndex = 0;
 whenYouWereBornApp.addListeners = () => {
   dateButtonElement.addEventListener('click', () => {
     modalElement.classList.add('active');
+    whenYouWereBornApp.currentArticleIndex = 0;
     whenYouWereBornApp.articlesArray = [];
     setTimeout(() => {
       document.querySelector('.article-content').innerHTML = '';
