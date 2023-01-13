@@ -4,8 +4,9 @@ const inputElement = document.querySelector('input#date-input');
 const articleElement = document.querySelector('.article-content');
 const dateButtonElement = document.querySelector('.date-button');
 const modalElement = document.querySelector('.modal');
-const nextButtonElement = document.querySelector('.next')
-const prevButtonElement = document.querySelector('.prev')
+const nextButtonElement = document.querySelector('.next-button');
+const prevButtonElement = document.querySelector('.prev-button');
+const pageDisplayElement = document.querySelector('.page-display');
 
 // Create an app object (whenYouWereBorn)
 const whenYouWereBornApp = {};
@@ -40,21 +41,36 @@ whenYouWereBornApp.addListeners = () => {
   });
   nextButtonElement.addEventListener('click', () => {
     const articles = whenYouWereBornApp.articlesArray;
-    const index = whenYouWereBornApp.currentArticleIndex;
+    let index = whenYouWereBornApp.currentArticleIndex;
     // checking the index value is valid for the array just helps prevent console errors.
     if (index < articles.length - 1) {
       // whenYouWereBornApp.currentArticleIndex++
       whenYouWereBornApp.displayArticle(++whenYouWereBornApp.currentArticleIndex);
+      ++index;
+    }
+    if (index > 0) {
+      prevButtonElement.classList.remove('inactive');
+    }
+    if (index === articles.length - 1) {
+      nextButtonElement.classList.add('inactive');
     }
   })
   prevButtonElement.addEventListener('click', () => {
     const articles = whenYouWereBornApp.articlesArray;
-    const index = whenYouWereBornApp.currentArticleIndex;
+    let index = whenYouWereBornApp.currentArticleIndex;
     // checking the index value is valid for the array just helps prevent console errors.
     if (index > 0) {
       // whenYouWereBornApp.currentArticleIndex--
       whenYouWereBornApp.displayArticle(--whenYouWereBornApp.currentArticleIndex);
+      --index;
     }
+    if (whenYouWereBornApp.currentArticleIndex === 0) {
+      prevButtonElement.classList.add('inactive');
+    }
+    if (index < articles.length - 1) {
+      nextButtonElement.classList.remove('inactive');
+    }
+
   })
 };
 
@@ -161,6 +177,9 @@ whenYouWereBornApp.displayArticle = (index) => {
   articleContentElement.append(headlineElement);
   articleContentElement.append(bylineElement);
   articleContentElement.append(abstractElement);
+
+  // update page display
+  pageDisplayElement.textContent = `${whenYouWereBornApp.currentArticleIndex + 1}/${whenYouWereBornApp.articlesArray.length}`
 };
 
 // filter for quality articles
@@ -219,6 +238,7 @@ whenYouWereBornApp.helperFunctions = {
 
 // Create an init method to kick off the setup of the application
 whenYouWereBornApp.init = () => {
+  prevButtonElement.classList.add('inactive');
   whenYouWereBornApp.addListeners();
 };
 
