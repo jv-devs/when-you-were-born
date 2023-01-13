@@ -7,6 +7,7 @@ const modalElement = document.querySelector('.modal');
 const nextButtonElement = document.querySelector('.next-button');
 const prevButtonElement = document.querySelector('.prev-button');
 const pageDisplayElement = document.querySelector('.page-display');
+const errorMessageElement = document.querySelector('.error-message');
 
 // Create an app object (whenYouWereBorn)
 const whenYouWereBornApp = {};
@@ -27,16 +28,21 @@ whenYouWereBornApp.currentArticleIndex = 0;
 whenYouWereBornApp.addListeners = () => {
   dateButtonElement.addEventListener('click', () => {
     modalElement.classList.add('active');
+    whenYouWereBornApp.articlesArray = [];
     setTimeout(() => {
       document.querySelector('.article-content').innerHTML = '';
     }, 1000);
   });
   formElement.addEventListener('submit', (e) => {
     e.preventDefault();
+    errorMessageElement.classList.remove('show');
+    errorMessageElement.textContent = '';
     whenYouWereBornApp.getUserQuery();
     whenYouWereBornApp.getArticles(whenYouWereBornApp.userQuery);
     setTimeout(() => {
-      modalElement.classList.remove('active');
+      if (whenYouWereBornApp.articlesArray.length > 0) {
+        modalElement.classList.remove('active');
+      }
     }, 500);
   });
   nextButtonElement.addEventListener('click', () => {
@@ -54,7 +60,7 @@ whenYouWereBornApp.addListeners = () => {
     if (index === articles.length - 1) {
       nextButtonElement.classList.add('inactive');
     }
-  })
+  });
   prevButtonElement.addEventListener('click', () => {
     const articles = whenYouWereBornApp.articlesArray;
     let index = whenYouWereBornApp.currentArticleIndex;
@@ -70,8 +76,7 @@ whenYouWereBornApp.addListeners = () => {
     if (index < articles.length - 1) {
       nextButtonElement.classList.remove('inactive');
     }
-
-  })
+  });
 };
 
 // Create a method (getUserQuery) to update the variable (userQuery) based on user input
@@ -94,6 +99,7 @@ whenYouWereBornApp.getArticles = (date) => {
     .then((jsonResult) => {
       // If article includes all the required data
       const curatedArticlesArray = whenYouWereBornApp.curatedArticles(jsonResult.response.docs);
+      // If curated articles array is empty
       if (curatedArticlesArray.length === 0) {
         throw new Error('You were born before the time of news');
       }
@@ -103,7 +109,13 @@ whenYouWereBornApp.getArticles = (date) => {
     })
     .catch((err) => {
       // If the API call fails, display an error message
-      console.log(err);
+      errorMessageElement.classList.add('show');
+      // If too many requests are sent
+      if (err instanceof TypeError) {
+        errorMessageElement.textContent = 'Slow down speedy gonzalez!!!';
+      } else {
+        errorMessageElement.textContent = err;
+      }
     });
 };
 
@@ -179,7 +191,7 @@ whenYouWereBornApp.displayArticle = (index) => {
   articleContentElement.append(abstractElement);
 
   // update page display
-  pageDisplayElement.textContent = `${whenYouWereBornApp.currentArticleIndex + 1}/${whenYouWereBornApp.articlesArray.length}`
+  pageDisplayElement.textContent = `${whenYouWereBornApp.currentArticleIndex + 1}/${whenYouWereBornApp.articlesArray.length}`;
 };
 
 // filter for quality articles

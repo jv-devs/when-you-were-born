@@ -9,7 +9,7 @@ body {
 .container {
   position: relative;
   max-width: 800px;
-  overflow: scroll;
+  overflow-y: scroll;
   height: calc(100vh - $footer-height);
   display: block;
   width: 90%;
