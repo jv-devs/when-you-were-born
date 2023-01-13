@@ -151,7 +151,7 @@ whenYouWereBornApp.displayArticle = (index) => {
   } = currentArticle;
 
   const multimedia = currentArticle.multimedia;
-  const imgAltText = `image from '${headline}' article`;
+  const imgAltText = `Image from '${headline}' article`;
   let imgSrcText = whenYouWereBornApp.helperFunctions.getSrcText(multimedia, keywords, headline);
 
   const dateElement = document.createElement('div');

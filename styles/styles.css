@@ -254,7 +254,7 @@ body {
 }
 
 img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
   display: block;
 }
@@ -394,6 +394,11 @@ article img {
   -webkit-box-shadow: -5px 5px 1px black;
           box-shadow: -5px 5px 1px black;
   margin: 0 auto;
+}
+article figcaption {
+  font-size: 0.9rem;
+  margin-top: 10px;
+  font-style: italic;
 }
 article .date,
 article .headline,
