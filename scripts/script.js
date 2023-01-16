@@ -17,19 +17,12 @@ const whenYouWereBornApp = {};
 whenYouWereBornApp.nytApiKey = '3PVudwxw0pTrDaU6BjIwRtu6a64QHvKB';
 // - unsplashAccessKey
 whenYouWereBornApp.unsplashAccessKey = 'e92v_aFnnoM-PnNGYNUNCSJTCQKlukw0-1t06E0pW8U';
-// - userQuery
-whenYouWereBornApp.userQuery = '';
-// - articlesArray
-whenYouWereBornApp.articlesArray = [];
-// - currentArticle
-whenYouWereBornApp.currentArticleIndex = 0;
 
 // addListeners function
 whenYouWereBornApp.addListeners = () => {
   dateButtonElement.addEventListener('click', () => {
     modalElement.classList.add('active');
-    whenYouWereBornApp.currentArticleIndex = 0;
-    whenYouWereBornApp.articlesArray = [];
+    whenYouWereBornApp.resetApp();
     setTimeout(() => {
       document.querySelector('.article-content').innerHTML = '';
     }, 1000);
@@ -39,7 +32,9 @@ whenYouWereBornApp.addListeners = () => {
     errorMessageElement.classList.remove('show');
     errorMessageElement.textContent = '';
     whenYouWereBornApp.getUserQuery();
-    whenYouWereBornApp.getArticles(whenYouWereBornApp.userQuery);
+    if (whenYouWereBornApp.helperFunctions.isDateValid(whenYouWereBornApp.userQuery)) {
+      whenYouWereBornApp.getArticles(whenYouWereBornApp.userQuery);
+    }
   });
   nextButtonElement.addEventListener('click', () => {
     const articles = whenYouWereBornApp.articlesArray;
@@ -142,7 +137,6 @@ whenYouWereBornApp.getUnsplashImage = async (keywords, headline) => {
 // displayArticle function
 whenYouWereBornApp.displayArticle = (index) => {
   const currentArticle = whenYouWereBornApp.articlesArray[index];
-  console.log(currentArticle);
   const {
     pub_date: pubDate,
     headline: { main: headline },
@@ -239,6 +233,14 @@ whenYouWereBornApp.curatedArticles = (articleArray) => {
   );
 };
 
+// method to reset current article index upon page load and when reloading modal
+
+whenYouWereBornApp.resetApp = () => {
+  whenYouWereBornApp.currentArticleIndex = 0;
+  whenYouWereBornApp.articlesArray = [];
+  prevButtonElement.classList.add('inactive');
+}
+
 // helper functions
 whenYouWereBornApp.helperFunctions = {
   shuffleArray: (arr) => {
@@ -270,12 +272,20 @@ whenYouWereBornApp.helperFunctions = {
       return whenYouWereBornApp.getUnsplashImage(keywords, headline);
     }
   },
+  isDateValid: (date) => {
+    const dateValid = new Date(date) < Date.now();
+    return dateValid ? true : (() => {
+      errorMessageElement.textContent = 'Are you from the future?!';
+      errorMessageElement.classList.add('show');
+      return false;
+    })();
+  }
 };
 
 // Create an init method to kick off the setup of the application
 whenYouWereBornApp.init = () => {
-  prevButtonElement.classList.add('inactive');
   whenYouWereBornApp.addListeners();
+  whenYouWereBornApp.resetApp();
 };
 
 whenYouWereBornApp.init();
