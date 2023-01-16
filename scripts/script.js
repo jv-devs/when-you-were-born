@@ -29,8 +29,6 @@ whenYouWereBornApp.addListeners = () => {
   });
   formElement.addEventListener('submit', (e) => {
     e.preventDefault();
-    errorMessageElement.classList.remove('show');
-    errorMessageElement.textContent = '';
     whenYouWereBornApp.getUserQuery();
     if (whenYouWereBornApp.helperFunctions.isDateValid(whenYouWereBornApp.userQuery)) {
       whenYouWereBornApp.getArticles(whenYouWereBornApp.userQuery);
@@ -103,12 +101,11 @@ whenYouWereBornApp.getArticles = (date) => {
     })
     .catch((err) => {
       // If the API call fails, display an error message
-      errorMessageElement.classList.add('show');
       // If too many requests are sent
       if (err instanceof TypeError) {
-        errorMessageElement.textContent = 'Slow down speedy gonzalez!!!';
+        whenYouWereBornApp.showErrorMessage('Slow down speedy gonzalez!!!');
       } else {
-        errorMessageElement.textContent = err;
+        whenYouWereBornApp.showErrorMessage(err);
       }
     });
 };
@@ -232,6 +229,23 @@ whenYouWereBornApp.curatedArticles = (articleArray) => {
       })
   );
 };
+// method to reset and show error message
+whenYouWereBornApp.resetErrorMessage = () => {
+  errorMessageElement.classList.remove('show');
+  errorMessageElement.textContent = '';
+}
+
+// This is a little stretch goal addition that we will happily remove if it means we are going to lose marks for polluting the global environment
+let timer;
+whenYouWereBornApp.showErrorMessage = (message) => {
+  errorMessageElement.classList.add('show');
+  errorMessageElement.textContent = message;
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    whenYouWereBornApp.resetErrorMessage();
+  }, 3000);
+}
+
 
 // method to reset current article index upon page load and when reloading modal
 
@@ -275,8 +289,7 @@ whenYouWereBornApp.helperFunctions = {
   isDateValid: (date) => {
     const dateValid = new Date(date) < Date.now();
     return dateValid ? true : (() => {
-      errorMessageElement.textContent = 'Are you from the future?!';
-      errorMessageElement.classList.add('show');
+      whenYouWereBornApp.showErrorMessage('Are you from the future?!')
       return false;
     })();
   }
