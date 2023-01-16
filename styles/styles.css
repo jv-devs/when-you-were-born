@@ -408,6 +408,11 @@ footer p {
 footer p a {
   color: black;
 }
+@media (max-width: 375px) {
+  footer {
+    font-size: 0.9rem;
+  }
+}
 
 article {
   padding: 30px;
@@ -496,6 +501,8 @@ article .byline {
   border-radius: 4px;
   color: black;
   display: none;
+  position: absolute;
+  top: 40px;
 }
 
 .show {

@@ -17,28 +17,22 @@ const whenYouWereBornApp = {};
 whenYouWereBornApp.nytApiKey = '3PVudwxw0pTrDaU6BjIwRtu6a64QHvKB';
 // - unsplashAccessKey
 whenYouWereBornApp.unsplashAccessKey = 'e92v_aFnnoM-PnNGYNUNCSJTCQKlukw0-1t06E0pW8U';
-// - userQuery
-whenYouWereBornApp.userQuery = '';
-// - articlesArray
-whenYouWereBornApp.articlesArray = [];
-// - currentArticle
-whenYouWereBornApp.currentArticleIndex = 0;
 
 // addListeners function
 whenYouWereBornApp.addListeners = () => {
   dateButtonElement.addEventListener('click', () => {
     modalElement.classList.add('active');
-    whenYouWereBornApp.articlesArray = [];
+    whenYouWereBornApp.resetApp();
     setTimeout(() => {
       document.querySelector('.article-content').innerHTML = '';
     }, 1000);
   });
   formElement.addEventListener('submit', (e) => {
     e.preventDefault();
-    errorMessageElement.classList.remove('show');
-    errorMessageElement.textContent = '';
     whenYouWereBornApp.getUserQuery();
-    whenYouWereBornApp.getArticles(whenYouWereBornApp.userQuery);
+    if (whenYouWereBornApp.helperFunctions.isDateValid(whenYouWereBornApp.userQuery)) {
+      whenYouWereBornApp.getArticles(whenYouWereBornApp.userQuery);
+    }
   });
   nextButtonElement.addEventListener('click', () => {
     const articles = whenYouWereBornApp.articlesArray;
@@ -107,12 +101,11 @@ whenYouWereBornApp.getArticles = (date) => {
     })
     .catch((err) => {
       // If the API call fails, display an error message
-      errorMessageElement.classList.add('show');
       // If too many requests are sent
       if (err instanceof TypeError) {
-        errorMessageElement.textContent = 'Slow down speedy gonzalez!!!';
+        whenYouWereBornApp.showErrorMessage('Slow down speedy gonzalez!!!');
       } else {
-        errorMessageElement.textContent = err;
+        whenYouWereBornApp.showErrorMessage(err);
       }
     });
 };
@@ -141,7 +134,6 @@ whenYouWereBornApp.getUnsplashImage = async (keywords, headline) => {
 // displayArticle function
 whenYouWereBornApp.displayArticle = (index) => {
   const currentArticle = whenYouWereBornApp.articlesArray[index];
-  console.log(currentArticle);
   const {
     pub_date: pubDate,
     headline: { main: headline },
@@ -237,6 +229,31 @@ whenYouWereBornApp.curatedArticles = (articleArray) => {
       })
   );
 };
+// method to reset and show error message
+whenYouWereBornApp.resetErrorMessage = () => {
+  errorMessageElement.classList.remove('show');
+  errorMessageElement.textContent = '';
+}
+
+// This is a little stretch goal addition that we will happily remove if it means we are going to lose marks for polluting the global environment
+let timer;
+whenYouWereBornApp.showErrorMessage = (message) => {
+  errorMessageElement.classList.add('show');
+  errorMessageElement.textContent = message;
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    whenYouWereBornApp.resetErrorMessage();
+  }, 3000);
+}
+
+
+// method to reset current article index upon page load and when reloading modal
+
+whenYouWereBornApp.resetApp = () => {
+  whenYouWereBornApp.currentArticleIndex = 0;
+  whenYouWereBornApp.articlesArray = [];
+  prevButtonElement.classList.add('inactive');
+}
 
 // helper functions
 whenYouWereBornApp.helperFunctions = {
@@ -269,12 +286,19 @@ whenYouWereBornApp.helperFunctions = {
       return whenYouWereBornApp.getUnsplashImage(keywords, headline);
     }
   },
+  isDateValid: (date) => {
+    const dateValid = new Date(date) < Date.now();
+    return dateValid ? true : (() => {
+      whenYouWereBornApp.showErrorMessage('Are you from the future?!')
+      return false;
+    })();
+  }
 };
 
 // Create an init method to kick off the setup of the application
 whenYouWereBornApp.init = () => {
-  prevButtonElement.classList.add('inactive');
   whenYouWereBornApp.addListeners();
+  whenYouWereBornApp.resetApp();
 };
 
 whenYouWereBornApp.init();

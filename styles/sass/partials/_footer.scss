@@ -14,4 +14,7 @@ footer {
       color: black;
     }
   }
+  @media (max-width: $mq-mobile-sm) {
+    font-size: 0.9rem;
+  }
 }
