@@ -114,7 +114,8 @@ whenYouWereBornApp.getUnsplashImage = async (keywords, headline) => {
   const unsplashUrl = new URL('https://api.unsplash.com/search/photos/');
   unsplashUrl.search = new URLSearchParams({
     client_id: whenYouWereBornApp.unsplashAccessKey,
-    query: keywords.length !== 0 ? keywords.map((e) => e.value).join(' ') : headline,
+    // query: keywords.length !== 0 ? keywords.map((e) => e.value).join(' ') : headline,
+    query: headline,
   });
   const res = await fetch(unsplashUrl);
   const data = await res.json();
@@ -233,7 +234,7 @@ whenYouWereBornApp.curatedArticles = (articleArray) => {
 whenYouWereBornApp.resetErrorMessage = () => {
   errorMessageElement.classList.remove('show');
   errorMessageElement.textContent = '';
-}
+};
 
 // This is a little stretch goal addition that we will happily remove if it means we are going to lose marks for polluting the global environment
 let timer;
@@ -244,8 +245,7 @@ whenYouWereBornApp.showErrorMessage = (message) => {
   timer = setTimeout(() => {
     whenYouWereBornApp.resetErrorMessage();
   }, 3000);
-}
-
+};
 
 // method to reset current article index upon page load and when reloading modal
 
@@ -253,7 +253,8 @@ whenYouWereBornApp.resetApp = () => {
   whenYouWereBornApp.currentArticleIndex = 0;
   whenYouWereBornApp.articlesArray = [];
   prevButtonElement.classList.add('inactive');
-}
+  nextButtonElement.classList.remove('inactive');
+};
 
 // helper functions
 whenYouWereBornApp.helperFunctions = {
@@ -288,11 +289,13 @@ whenYouWereBornApp.helperFunctions = {
   },
   isDateValid: (date) => {
     const dateValid = new Date(date) < Date.now();
-    return dateValid ? true : (() => {
-      whenYouWereBornApp.showErrorMessage('Are you from the future?!')
-      return false;
-    })();
-  }
+    return dateValid
+      ? true
+      : (() => {
+          whenYouWereBornApp.showErrorMessage('Are you from the future?!');
+          return false;
+        })();
+  },
 };
 
 // Create an init method to kick off the setup of the application
